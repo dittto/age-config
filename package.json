@@ -1,0 +1,39 @@
+{
+  "name": "serverless-age-config",
+  "version": "1.0.0",
+  "description": "Generates a config for AGE based on available plugins",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.6.9"
+  },
+  "devDependencies": {
+    "chai": "^3.5",
+    "coveralls": "^2.11.14",
+    "istanbul": "^0.4.5",
+    "mocha": "^2.4",
+    "mocha-lcov-reporter": "^1.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dittto/serverless-age-config.git"
+  },
+  "keywords": [
+    "serverless",
+    "package",
+    "includes"
+  ],
+  "author": "Nick Stacey @ditt_to",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dittto/serverless-age-config/issues"
+  },
+  "homepage": "https://github.com/dittto/serverless-age/config#readme",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha",
+    "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+  }
+}

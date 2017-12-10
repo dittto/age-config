@@ -1,6 +1,6 @@
 {
   "name": "serverless-age-config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates a config for AGE based on available plugins",
   "main": "index.js",
   "dependencies": {

@@ -24,7 +24,7 @@ class AgeConfigPlugin {
             fs = require('fs'),
             merge = require('deepmerge'),
             AGE = require('../../AGE'),
-            config = new AGE.Config('../config/');
+            config = new AGE.Config('./config/');
         let configData = {};
 
         const pluginPaths = new AGE.Plugins(config).getPluginPaths();

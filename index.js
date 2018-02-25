@@ -38,33 +38,40 @@ class AgeConfigPlugin {
 
         configData = merge({slot_values: config.get('slot_values')}, configData);
 
-        const intents = this.__buildIntents(configData);
-        fs.writeFile('../data/intents.json', JSON.stringify(intents, null, 4), err => {
-            if (err) {
-                throw err;
+        const data = {
+            'languageModel': {
+                'invocationName': config.getBaseConfig('invocation_name'),
+                'intents': this.__buildIntents(configData),
+                'types': this.__buildTypes(configData)
             }
-            this.serverless.cli.log('AGE config helper: Created data/intents.json file');
-        });
+        };
 
-        const utterances = this.__buildSampleUtterances(configData);
-        fs.writeFile('../data/SampleUtterances.txt', utterances.join("\n"), err => {
+        fs.writeFile('../data/age-config.json', JSON.stringify(data, null, 4), err => {
             if (err) {
                 throw err;
             }
-            this.serverless.cli.log('AGE config helper: Created data/SampleUtterances.txt file');
-        });
-
-        const slotValues = this.__buildSlotValues(configData);
-        fs.writeFile('../data/SlotValues.txt', slotValues.join("\n"), err => {
-            if (err) {
-                throw err;
-            }
-            this.serverless.cli.log('AGE config helper: Created data/SlotValues.txt file');
+            this.serverless.cli.log('AGE config helper: Created data/age-config.json file');
         });
     }
 
     __buildIntents(configData) {
-        const intents = [];
+        const intents = [
+            {
+                name: 'AMAZON.CancelIntent',
+                slots: [],
+                samples: []
+            },
+            {
+                name: 'AMAZON.HelpIntent',
+                slots: [],
+                samples: []
+            },
+            {
+                name: 'AMAZON.StopIntent',
+                slots: [],
+                samples: []
+            }
+        ];
 
         Object.keys(configData.intents).forEach(intent => {
             const slots = configData.intents[intent];
@@ -77,56 +84,62 @@ class AgeConfigPlugin {
             });
 
             intents.push({
-                intent: intent,
-                slots: slotData
+                name: intent,
+                slots: slotData,
+                samples: configData.utterances[intent] || []
             });
         });
 
-        return {'intents': intents};
+        return intents;
     }
 
-    __buildSampleUtterances(configData) {
-        const utterances = [];
-
-        Object.keys(configData.utterances).forEach(intent => {
-            const texts = configData.utterances[intent];
-            texts.forEach(text => {
-                utterances.push(intent + " " + text);
-            });
-        });
-
-        return utterances;
-    }
-
-    __buildSlotValues(configData) {
-        const slotValues = [];
+    __buildTypes(configData) {
+        const types = [];
 
         Object.keys(configData.slot_values).forEach(type => {
-            slotValues.push('[' + type + ']');
+            const data = {
+                name: type,
+                values: []
+            };
 
             const values = configData.slot_values[type];
             values.forEach(value => {
-                slotValues.push(value);
+                data.values.push({
+                    id: '',
+                    name: {
+                        value: value,
+                        synonyms: []
+                    }
+                });
             });
 
-            slotValues.push('');
+            types.push(data);
         });
 
         Object.keys(configData.slots).forEach(type => {
-            slotValues.push('[' + type + ']');
+            const data = {
+                name: type,
+                values: []
+            };
 
             const otherTypes = configData.slots[type];
             otherTypes.forEach(otherType => {
                 const values = configData.slot_values[otherType];
                 values.forEach(value => {
-                    slotValues.push(value);
+                    data.values.push({
+                        id: '',
+                        name: {
+                            value: value,
+                            synonyms: []
+                        }
+                    });
                 });
             });
 
-            slotValues.push('');
+            types.push(data);
         });
 
-        return slotValues;
+        return types;
     }
 }
 

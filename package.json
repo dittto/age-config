@@ -1,10 +1,13 @@
 {
-  "name": "serverless-age-config",
-  "version": "1.0.1",
+  "name": "age-config",
+  "version": "2.0.0",
   "description": "Generates a config for AGE based on available plugins",
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.6.9"
+    "aws-sdk": "^2.6.9",
+    "deepmerge": "^1.5.2",
+    "fs": "0.0.1-security",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "chai": "^3.5",
@@ -15,19 +18,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dittto/serverless-age-config.git"
+    "url": "git+https://github.com/dittto/age-config.git"
   },
   "keywords": [
     "serverless",
     "package",
-    "includes"
+    "includes",
+    "age"
   ],
   "author": "Nick Stacey @ditt_to",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dittto/serverless-age-config/issues"
+    "url": "https://github.com/dittto/age-config/issues"
   },
-  "homepage": "https://github.com/dittto/serverless-age/config#readme",
+  "homepage": "https://github.com/dittto/age/config#readme",
   "directories": {
     "test": "test"
   },

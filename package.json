@@ -1,6 +1,6 @@
 {
   "name": "age-config",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Generates a config for AGE based on available plugins",
   "main": "index.js",
   "dependencies": {

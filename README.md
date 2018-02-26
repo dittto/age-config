@@ -21,14 +21,17 @@ config:
 
 This will pull any settings from all `_helper.yaml` files in plugins and from `src/config`. You'll need to create the `src/config/_helper.yaml` file if you don't have one, to describe what slots (types) have what values:
 
-For example:
+For example, the following will create data for the slots `command`, `credit`, `item`, and `object`. Note that `command` is in a different format. This alternative format allows you to add synonyms to the slot values, so with below a `jester` can also be referred to as a `clown`, `fool`, or `annoyance`:
 
 ```yaml
 slot_values:
     command:
-        - jester
-        - yes
-        - no
+        jester:
+            - clown
+            - fool
+            - annoyance
+        yes:
+        no:
     credit:
         - Nick Stacey
     item:
@@ -40,3 +43,4 @@ slot_values:
         - north door
         - switch
 ```
+

@@ -103,15 +103,27 @@ class AgeConfigPlugin {
             };
 
             const values = configData.slot_values[type];
-            values.forEach(value => {
+
+            for (let key in values) {
+                let value = null;
+                let synonyms = [];
+                if (values[key] === null) {
+                    value = key;
+                } else if (Array.isArray(values[key])) {
+                    value = key;
+                    synonyms = values[key];
+                } else {
+                    value = values[key];
+                }
+
                 data.values.push({
                     id: '',
                     name: {
                         value: value,
-                        synonyms: []
+                        synonyms: synonyms
                     }
                 });
-            });
+            }
 
             types.push(data);
         });
